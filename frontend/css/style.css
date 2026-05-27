@@ -1,0 +1,984 @@
+:root {
+  /* Paleta principal do HotelHub, inspirada nas referencias visuais enviadas. */
+  --page-bg: #eaf9fb;
+  --surface: #ffffff;
+  --surface-soft: #f6fcfd;
+  --primary: #2f5d88;
+  --primary-dark: #18384f;
+  --accent: #7ccfd2;
+  --accent-soft: #dff6f7;
+  --text: #1d2c36;
+  --muted: #5c7380;
+  --line: #cde8ee;
+  --shadow: 0 20px 50px rgba(24, 56, 79, 0.12);
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background: var(--page-bg);
+  font-family: "Inter", Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header {
+  /* Header em tres areas: logo, menu central e botoes de acesso. */
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) auto minmax(150px, 1fr);
+  align-items: center;
+  gap: 24px;
+  min-height: 78px;
+  padding: 14px clamp(20px, 5vw, 72px);
+  background: rgba(255, 255, 255, 0.94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(14px);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--primary-dark);
+  font-size: 1.18rem;
+  font-weight: 700;
+}
+
+.brand-mark {
+  /* Logo desenhada em CSS para evitar depender de imagem externa. */
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  background: linear-gradient(145deg, #ffffff, var(--accent-soft));
+  border: 1px solid rgba(47, 93, 136, 0.2);
+  border-radius: 13px;
+  box-shadow: 0 10px 22px rgba(24, 56, 79, 0.1);
+}
+
+.brand-mark::before {
+  position: absolute;
+  top: 8px;
+  left: 9px;
+  width: 20px;
+  height: 16px;
+  background: transparent;
+  border: 3px solid var(--primary);
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+  content: "";
+}
+
+.brand-mark::after {
+  position: absolute;
+  right: 10px;
+  bottom: 9px;
+  left: 10px;
+  height: 14px;
+  background: var(--primary);
+  border-radius: 4px 4px 8px 8px;
+  content: "";
+}
+
+.brand-window {
+  position: absolute;
+  z-index: 1;
+  top: 23px;
+  left: 17px;
+  width: 6px;
+  height: 9px;
+  background: var(--surface);
+  border-radius: 999px 999px 2px 2px;
+  box-shadow: none;
+}
+
+.brand-window::after {
+  content: none;
+}
+
+.brand-name {
+  font-family: "Poiret One", "Inter", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 3vw, 34px);
+  justify-content: center;
+  color: var(--primary-dark);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.main-nav a:hover {
+  color: var(--primary);
+}
+
+.main-nav a {
+  position: relative;
+  padding: 10px 0;
+}
+
+.main-nav a::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: var(--primary);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.35s var(--ease-smooth);
+}
+
+.main-nav a:hover::after,
+.main-nav a.is-active::after {
+  transform: scaleX(1);
+}
+
+.main-nav a.is-active {
+  color: var(--primary);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid rgba(124, 207, 210, 0.55);
+  outline-offset: 3px;
+}
+
+.auth-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.login-button,
+.signup-button {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.35s var(--ease-smooth),
+    background 0.35s var(--ease-smooth), color 0.35s var(--ease-smooth),
+    border-color 0.35s var(--ease-smooth);
+}
+
+.login-button {
+  color: var(--primary-dark);
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.signup-button {
+  color: var(--surface);
+  background: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+.login-button:hover,
+.signup-button:hover {
+  transform: translateY(-2px);
+}
+
+.login-button:hover {
+  border-color: var(--line);
+  background: var(--surface-soft);
+}
+
+.signup-button:hover {
+  background: var(--primary-dark);
+}
+
+.hero {
+  /* Area principal ocupa a primeira dobra e recebe o carrossel como fundo. */
+  position: relative;
+  min-height: calc(100vh - 78px);
+  overflow: hidden;
+  border-bottom: 1px solid var(--line);
+}
+
+.carousel {
+  position: absolute;
+  inset: 0;
+  background: var(--primary-dark);
+}
+
+.carousel::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(24, 56, 79, 0.78) 0%,
+    rgba(24, 56, 79, 0.48) 42%,
+    rgba(24, 56, 79, 0.16) 100%
+  );
+  content: "";
+}
+
+.carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-track img {
+  /* Imagens sobrepostas em fade para uma transicao mais suave que o slide lateral. */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.025);
+  transition: opacity 1.25s var(--ease-smooth),
+    transform 6.5s var(--ease-smooth);
+  will-change: opacity, transform;
+}
+
+.carousel-track img.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: var(--primary-dark);
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition: background 0.35s var(--ease-smooth),
+    transform 0.35s var(--ease-smooth);
+}
+
+.carousel-control:hover {
+  background: var(--surface);
+  transform: translateY(-50%) scale(1.04);
+}
+
+.carousel-control-prev {
+  left: 24px;
+}
+
+.carousel-control-next {
+  right: 24px;
+}
+
+.carousel-dots {
+  position: absolute;
+  right: 0;
+  bottom: 24px;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.carousel-dot {
+  width: 34px;
+  height: 4px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.55);
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: width 0.35s var(--ease-smooth),
+    background 0.35s var(--ease-smooth);
+}
+
+.carousel-dot.is-active {
+  width: 46px;
+  background: var(--surface);
+}
+
+.hero-overlay {
+  /* Mantem texto e busca acima das imagens do carrossel. */
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.05fr);
+  gap: clamp(26px, 5vw, 70px);
+  align-items: center;
+  min-height: calc(100vh - 78px);
+  padding: clamp(56px, 8vw, 104px) clamp(24px, 7vw, 112px);
+  animation: softReveal 0.9s var(--ease-smooth) both;
+}
+
+.hero-content {
+  max-width: 620px;
+}
+
+.hero-content .eyebrow {
+  color: var(--accent);
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  color: var(--primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2 {
+  margin: 0;
+  color: var(--primary);
+  font-family: "Poiret One", "Inter", sans-serif;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+h1 {
+  color: var(--surface);
+  font-size: clamp(4rem, 10vw, 8.5rem);
+  line-height: 0.92;
+  text-shadow: 0 12px 36px rgba(24, 56, 79, 0.28);
+}
+
+h2 {
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  line-height: 1;
+}
+
+.hero-text {
+  max-width: 520px;
+  margin: 24px 0 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+
+.search-panel {
+  /* Painel de busca transludico para continuar legivel sobre o carrossel. */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  padding: clamp(22px, 4vw, 34px);
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  transform: translateZ(0);
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+}
+
+.field label {
+  color: var(--primary-dark);
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.field input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  color: var(--text);
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  font: inherit;
+}
+
+.field input:focus {
+  outline: 3px solid rgba(124, 207, 210, 0.35);
+  border-color: var(--accent);
+}
+
+.date-field {
+  /* Container do calendario personalizado usado nos campos de entrada e saida. */
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 6px 0 0;
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  transition: border-color 0.35s var(--ease-smooth),
+    box-shadow 0.35s var(--ease-smooth);
+}
+
+.date-field:focus-within,
+.date-field.is-open {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124, 207, 210, 0.28);
+}
+
+.date-field input {
+  min-height: 46px;
+  padding-right: 4px;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.date-field input:focus {
+  outline: 0;
+}
+
+.date-trigger,
+.date-clear,
+.calendar-nav {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  place-items: center;
+  color: var(--primary);
+  background: transparent;
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  font: inherit;
+  line-height: 1;
+  transition: background 0.3s var(--ease-smooth),
+    color 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth);
+}
+
+.date-trigger:hover,
+.calendar-nav:hover {
+  color: var(--primary-dark);
+  background: rgba(124, 207, 210, 0.18);
+}
+
+.date-clear {
+  color: #c44d5a;
+  font-size: 1.25rem;
+}
+
+.date-clear:hover {
+  background: rgba(196, 77, 90, 0.12);
+}
+
+.calendar-popover {
+  /* Popover criado pelo JavaScript e posicionado abaixo do respectivo campo. */
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  z-index: 20;
+  width: min(330px, calc(100vw - 48px));
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 22px 60px rgba(24, 56, 79, 0.18);
+  opacity: 0;
+  transform: translateY(8px) scale(0.98);
+  transform-origin: top left;
+  pointer-events: none;
+  transition: opacity 0.32s var(--ease-smooth),
+    transform 0.32s var(--ease-smooth);
+}
+
+.date-field.is-open .calendar-popover {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.calendar-title {
+  color: var(--primary-dark);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.calendar-weekdays,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+
+.calendar-weekdays {
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.calendar-day {
+  display: grid;
+  min-width: 0;
+  height: 36px;
+  place-items: center;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  border-radius: 9px;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  transition: background 0.28s var(--ease-smooth),
+    color 0.28s var(--ease-smooth), transform 0.28s var(--ease-smooth);
+}
+
+.calendar-day:hover {
+  color: var(--primary-dark);
+  background: rgba(124, 207, 210, 0.22);
+  transform: translateY(-1px);
+}
+
+.calendar-day:disabled {
+  color: #b4c5cc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.calendar-day:disabled:hover {
+  background: transparent;
+  transform: none;
+}
+
+.calendar-day.is-muted {
+  color: #9ab1bb;
+}
+
+.calendar-day.is-in-range {
+  color: var(--primary-dark);
+  background: var(--accent-soft);
+}
+
+.calendar-day.is-today {
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.calendar-day.is-selected {
+  color: var(--surface);
+  background: var(--primary);
+  box-shadow: 0 8px 18px rgba(47, 93, 136, 0.24);
+}
+
+.primary-button,
+.secondary-button,
+.ghost-button {
+  min-height: 46px;
+  border: 0;
+  border-radius: 6px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.35s var(--ease-smooth),
+    box-shadow 0.35s var(--ease-smooth), background 0.35s var(--ease-smooth),
+    border-color 0.35s var(--ease-smooth), color 0.35s var(--ease-smooth);
+}
+
+.primary-button {
+  grid-column: 1 / -1;
+  color: var(--surface);
+  background: var(--primary);
+  box-shadow: 0 12px 24px rgba(47, 93, 136, 0.24);
+}
+
+.primary-button:hover,
+.secondary-button:hover,
+.ghost-button:hover {
+  transform: translateY(-2px);
+}
+
+.primary-button:hover {
+  background: var(--primary-dark);
+}
+
+.search-feedback {
+  grid-column: 1 / -1;
+  margin: -4px 0 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.featured-section {
+  padding: clamp(54px, 8vw, 96px) clamp(20px, 6vw, 96px);
+}
+
+.section-heading {
+  max-width: 980px;
+  margin: 0 auto 34px;
+  text-align: center;
+}
+
+.hotel-grid {
+  /* Grade dos hoteis ficticios gerados pelo app.js. */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.empty-message {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 24px;
+  color: var(--muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.hotel-card {
+  overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 14px 34px rgba(24, 56, 79, 0.09);
+  transition: transform 0.4s var(--ease-smooth),
+    box-shadow 0.4s var(--ease-smooth);
+}
+
+.hotel-card:hover {
+  box-shadow: 0 18px 42px rgba(24, 56, 79, 0.13);
+  transform: translateY(-4px);
+}
+
+.hotel-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: var(--surface-soft);
+  object-fit: cover;
+}
+
+.hotel-card-content {
+  padding: 20px;
+}
+
+.hotel-card h3 {
+  margin: 0;
+  color: var(--primary-dark);
+  font-size: 1.18rem;
+}
+
+.hotel-capacity {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  color: var(--primary-dark);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.hotel-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 12px 0;
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+
+.hotel-description {
+  min-height: 72px;
+  margin: 0 0 18px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.hotel-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.secondary-button {
+  color: var(--surface);
+  background: var(--primary);
+}
+
+.ghost-button {
+  color: var(--primary);
+  background: transparent;
+  border: 1px solid var(--line);
+}
+
+.reviews-section {
+  padding: clamp(50px, 8vw, 92px) clamp(20px, 6vw, 96px);
+  background: var(--page-bg);
+  border-top: 1px solid var(--line);
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.review-card {
+  padding: 26px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.4s var(--ease-smooth),
+    background 0.4s var(--ease-smooth);
+}
+
+.review-card:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-3px);
+}
+
+.quote-mark {
+  display: block;
+  color: var(--primary);
+  font-family: Georgia, serif;
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 0.8;
+}
+
+.review-card p {
+  margin: 10px 0 22px;
+  color: var(--text);
+  font-style: italic;
+  line-height: 1.8;
+}
+
+.review-card strong {
+  color: var(--primary-dark);
+}
+
+.about-section {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 28px;
+  align-items: center;
+  padding: clamp(44px, 7vw, 84px) clamp(20px, 6vw, 96px);
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.about-section p:last-child {
+  max-width: 680px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.8;
+}
+
+.toast {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  max-width: min(360px, calc(100vw - 44px));
+  padding: 14px 16px;
+  color: var(--surface);
+  background: var(--primary-dark);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(12px);
+  pointer-events: none;
+  transition: opacity 0.35s var(--ease-smooth),
+    transform 0.35s var(--ease-smooth);
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.site-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 28px;
+  align-items: center;
+  padding: 34px clamp(20px, 6vw, 96px);
+  color: rgba(255, 255, 255, 0.82);
+  background: var(--primary-dark);
+}
+
+.footer-brand {
+  color: var(--surface);
+}
+
+.site-footer p {
+  max-width: 480px;
+  margin: 14px 0 0;
+  line-height: 1.6;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-end;
+  font-weight: 700;
+}
+
+.footer-links a:hover {
+  color: var(--surface);
+}
+
+.featured-section,
+.reviews-section,
+.about-section {
+  /* Ajuda o navegador a renderizar secoes fora da tela somente quando necessario. */
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 760px;
+}
+
+@keyframes softReveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 920px) {
+  /* Ajustes para tablets: empilha header, hero e secoes largas. */
+  .site-header,
+  .hero-overlay,
+  .about-section {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header,
+  .auth-actions,
+  .main-nav {
+    justify-content: center;
+  }
+
+  .hero,
+  .hero-overlay {
+    min-height: auto;
+  }
+
+  .hero-overlay {
+    padding-top: 78px;
+    padding-bottom: 86px;
+  }
+
+  .hotel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Ajustes para celular: campos e cards viram uma unica coluna. */
+  .site-header {
+    gap: 12px;
+  }
+
+  .main-nav {
+    width: 100%;
+    justify-content: space-between;
+    overflow-x: auto;
+  }
+
+  .search-panel,
+  .hotel-grid,
+  .hotel-actions,
+  .site-footer {
+    grid-template-columns: 1fr;
+  }
+
+  .carousel-control {
+    display: none;
+  }
+
+  .auth-actions {
+    width: 100%;
+  }
+
+  .login-button,
+  .signup-button {
+    flex: 1;
+  }
+
+  .footer-links {
+    justify-content: flex-start;
+  }
+
+  h1 {
+    font-size: clamp(3.4rem, 22vw, 5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Acessibilidade: reduz animacoes para usuarios que preferem menos movimento. */
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
