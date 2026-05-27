@@ -672,6 +672,14 @@ h2 {
   text-align: center;
 }
 
+.empty-message p {
+  margin: 0 0 16px;
+}
+
+.empty-message p:last-child {
+  margin-bottom: 0;
+}
+
 .hotel-card {
   overflow: hidden;
   background: var(--surface);

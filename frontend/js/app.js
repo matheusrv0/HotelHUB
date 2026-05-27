@@ -72,13 +72,44 @@ const dateInputs = {
   checkout: document.querySelector("#checkout"),
 };
 
-function renderHotels(items) {
+function normalizeSearchTerm(value) {
+  return String(value)
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+}
+
+function resetHotelSearch() {
+  searchForm.reset();
+  dateInputs.checkin.value = "";
+  dateInputs.checkout.value = "";
+  delete dateInputs.checkin.dataset.date;
+  delete dateInputs.checkout.dataset.date;
+
+  Object.values(datePickerState).forEach((state) => {
+    state.selected = null;
+  });
+
+  renderHotels(hotels);
+  setSearchFeedback("Mostrando sugestoes selecionadas para sua viagem.");
+}
+
+function renderHotels(items, hasActiveSearch = false) {
   // Limpa a lista e recria os cards de acordo com a busca feita pelo usuario.
   hotelList.innerHTML = "";
 
   if (items.length === 0) {
-    hotelList.innerHTML =
-      '<p class="empty-message">Nenhum hotel ficticio encontrado para esse destino.</p>';
+    hotelList.innerHTML = `
+      <div class="empty-message">
+        <p>Nenhum hotel ficticio encontrado com esses filtros.</p>
+        ${
+          hasActiveSearch
+            ? '<button class="ghost-button" type="button" data-action="reset-search">Mostrar todas as estadias</button>'
+            : ""
+        }
+      </div>
+    `;
     return;
   }
 
@@ -522,7 +553,7 @@ searchForm.addEventListener("submit", (event) => {
   event.preventDefault();
 
   const formData = new FormData(searchForm);
-  const destination = String(formData.get("destination")).trim().toLowerCase();
+  const destination = normalizeSearchTerm(formData.get("destination"));
   const guests = Number(formData.get("guests"));
   const checkinDate = getSelectedDate("checkin");
   const checkoutDate = getSelectedDate("checkout");
@@ -535,7 +566,8 @@ searchForm.addEventListener("submit", (event) => {
 
   const filteredHotels = hotels.filter((hotel) => {
     const matchesDestination = destination
-      ? hotel.destination.toLowerCase().includes(destination)
+      ? normalizeSearchTerm(hotel.destination).includes(destination) ||
+        normalizeSearchTerm(hotel.name).includes(destination)
       : true;
     const matchesGuests = Number.isNaN(guests) ? true : hotel.maxGuests >= guests;
     const matchesDates = hotelMatchesDates(hotel, checkinDate, checkoutDate);
@@ -543,7 +575,7 @@ searchForm.addEventListener("submit", (event) => {
     return matchesDestination && matchesGuests && matchesDates;
   });
 
-  renderHotels(filteredHotels);
+  renderHotels(filteredHotels, true);
   const resultLabel = filteredHotels.length === 1 ? "estadia encontrada" : "estadias encontradas";
   const dateLabel =
     checkinDate && checkoutDate
@@ -562,8 +594,15 @@ hotelList.addEventListener("click", (event) => {
     return;
   }
 
-  const hotelName = button.dataset.hotel;
   const action = button.dataset.action;
+
+  if (action === "reset-search") {
+    resetHotelSearch();
+    showToast("Filtros limpos. Mostrando todas as estadias.");
+    return;
+  }
+
+  const hotelName = button.dataset.hotel;
 
   if (action === "details") {
     showToast(`Detalhes simulados de ${hotelName}.`);
