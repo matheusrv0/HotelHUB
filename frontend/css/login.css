@@ -1,0 +1,212 @@
+/* login.css */
+
+:root {
+  --page-bg: #eaf9fb;
+  --surface: #ffffff;
+  --surface-soft: #f6fcfd;
+  --primary: #2f5d88;
+  --primary-dark: #18384f;
+  --accent: #7ccfd2;
+  --accent-soft: #dff6f7;
+  --text: #1d2c36;
+  --muted: #5c7380;
+  --line: #cde8ee;
+  --shadow: 0 20px 50px rgba(24, 56, 79, 0.12);
+  --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  background: linear-gradient(
+      rgba(24, 56, 79, 0.75),
+      rgba(24, 56, 79, 0.75)
+    ),
+    url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=80");
+  background-size: cover;
+  background-position: center;
+  font-family: "Inter", sans-serif;
+  color: var(--text);
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 430px;
+  padding: 36px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  animation: softReveal 0.5s var(--ease-smooth);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+  color: var(--primary-dark);
+  text-decoration: none;
+}
+
+.brand-mark {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(145deg, #ffffff, var(--accent-soft));
+  border: 1px solid rgba(47, 93, 136, 0.2);
+  border-radius: 13px;
+}
+
+.brand-mark::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 9px;
+  width: 20px;
+  height: 16px;
+  border: 3px solid var(--primary);
+  border-bottom: 0;
+  border-radius: 12px 12px 0 0;
+}
+
+.brand-mark::after {
+  content: "";
+  position: absolute;
+  right: 10px;
+  bottom: 9px;
+  left: 10px;
+  height: 14px;
+  background: var(--primary);
+  border-radius: 4px 4px 8px 8px;
+}
+
+.brand-window {
+  position: absolute;
+  top: 23px;
+  left: 17px;
+  width: 6px;
+  height: 9px;
+  background: white;
+  border-radius: 999px 999px 2px 2px;
+}
+
+.brand-name {
+  font-family: "Poiret One", sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 0 0 8px;
+  color: var(--primary-dark);
+  text-align: center;
+  font-size: 2rem;
+}
+
+.subtitle {
+  margin: 0 0 28px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.6;
+}
+
+.form-group {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  color: var(--primary-dark);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.form-group input {
+  width: 100%;
+  min-height: 50px;
+  padding: 12px 14px;
+  background: var(--surface-soft);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: inherit;
+  transition: 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(124, 207, 210, 0.25);
+}
+
+.primary-button {
+  width: 100%;
+  min-height: 50px;
+  margin-top: 8px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--primary);
+  color: white;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.primary-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+}
+
+.bottom-text {
+  margin-top: 22px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.bottom-text a {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.bottom-text a:hover {
+  text-decoration: underline;
+}
+
+@keyframes softReveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 540px) {
+  body {
+    padding: 20px;
+  }
+
+  .auth-container {
+    padding: 28px 22px;
+  }
+
+  h1 {
+    font-size: 1.7rem;
+  }
+}

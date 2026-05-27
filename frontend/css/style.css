@@ -184,8 +184,10 @@ input:focus-visible {
   font-size: 0.92rem;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.35s var(--ease-smooth),
-    background 0.35s var(--ease-smooth), color 0.35s var(--ease-smooth),
+  transition:
+    transform 0.35s var(--ease-smooth),
+    background 0.35s var(--ease-smooth),
+    color 0.35s var(--ease-smooth),
     border-color 0.35s var(--ease-smooth);
 }
 
@@ -257,7 +259,8 @@ input:focus-visible {
   object-position: center;
   opacity: 0;
   transform: scale(1.025);
-  transition: opacity 1.25s var(--ease-smooth),
+  transition:
+    opacity 1.25s var(--ease-smooth),
     transform 6.5s var(--ease-smooth);
   will-change: opacity, transform;
 }
@@ -283,7 +286,8 @@ input:focus-visible {
   line-height: 1;
   cursor: pointer;
   transform: translateY(-50%);
-  transition: background 0.35s var(--ease-smooth),
+  transition:
+    background 0.35s var(--ease-smooth),
     transform 0.35s var(--ease-smooth);
 }
 
@@ -319,7 +323,8 @@ input:focus-visible {
   border: 0;
   border-radius: 999px;
   cursor: pointer;
-  transition: width 0.35s var(--ease-smooth),
+  transition:
+    width 0.35s var(--ease-smooth),
     background 0.35s var(--ease-smooth);
 }
 
@@ -438,7 +443,8 @@ h2 {
   background: var(--surface-soft);
   border: 1px solid var(--line);
   border-radius: 8px;
-  transition: border-color 0.35s var(--ease-smooth),
+  transition:
+    border-color 0.35s var(--ease-smooth),
     box-shadow 0.35s var(--ease-smooth);
 }
 
@@ -475,8 +481,10 @@ h2 {
   cursor: pointer;
   font: inherit;
   line-height: 1;
-  transition: background 0.3s var(--ease-smooth),
-    color 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth);
+  transition:
+    background 0.3s var(--ease-smooth),
+    color 0.3s var(--ease-smooth),
+    transform 0.3s var(--ease-smooth);
 }
 
 .date-trigger:hover,
@@ -510,7 +518,8 @@ h2 {
   transform: translateY(8px) scale(0.98);
   transform-origin: top left;
   pointer-events: none;
-  transition: opacity 0.32s var(--ease-smooth),
+  transition:
+    opacity 0.32s var(--ease-smooth),
     transform 0.32s var(--ease-smooth);
 }
 
@@ -562,8 +571,10 @@ h2 {
   cursor: pointer;
   font: inherit;
   font-size: 0.9rem;
-  transition: background 0.28s var(--ease-smooth),
-    color 0.28s var(--ease-smooth), transform 0.28s var(--ease-smooth);
+  transition:
+    background 0.28s var(--ease-smooth),
+    color 0.28s var(--ease-smooth),
+    transform 0.28s var(--ease-smooth);
 }
 
 .calendar-day:hover {
@@ -611,9 +622,12 @@ h2 {
   font: inherit;
   font-weight: 700;
   cursor: pointer;
-  transition: transform 0.35s var(--ease-smooth),
-    box-shadow 0.35s var(--ease-smooth), background 0.35s var(--ease-smooth),
-    border-color 0.35s var(--ease-smooth), color 0.35s var(--ease-smooth);
+  transition:
+    transform 0.35s var(--ease-smooth),
+    box-shadow 0.35s var(--ease-smooth),
+    background 0.35s var(--ease-smooth),
+    border-color 0.35s var(--ease-smooth),
+    color 0.35s var(--ease-smooth);
 }
 
 .primary-button {
@@ -686,7 +700,8 @@ h2 {
   border: 1px solid var(--line);
   border-radius: 8px;
   box-shadow: 0 14px 34px rgba(24, 56, 79, 0.09);
-  transition: transform 0.4s var(--ease-smooth),
+  transition:
+    transform 0.4s var(--ease-smooth),
     box-shadow 0.4s var(--ease-smooth);
 }
 
@@ -780,7 +795,8 @@ h2 {
   border: 1px solid var(--line);
   border-radius: 8px;
   text-align: center;
-  transition: transform 0.4s var(--ease-smooth),
+  transition:
+    transform 0.4s var(--ease-smooth),
     background 0.4s var(--ease-smooth);
 }
 
@@ -840,7 +856,8 @@ h2 {
   opacity: 0;
   transform: translateY(12px);
   pointer-events: none;
-  transition: opacity 0.35s var(--ease-smooth),
+  transition:
+    opacity 0.35s var(--ease-smooth),
     transform 0.35s var(--ease-smooth);
 }
 

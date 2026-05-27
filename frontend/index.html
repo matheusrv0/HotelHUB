@@ -3,259 +3,589 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hotel Hub</title>
+
+    <title>HotelHub | Sua próxima hospedagem</title>
+
+    <meta
+      name="description"
+      content="Encontre hotéis, resorts e pousadas com uma experiência moderna e rápida."
+    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poiret+One&display=swap"
       rel="stylesheet"
     />
+
     <link rel="stylesheet" href="css/style.css" />
   </head>
+
   <body>
+
+    <!-- HEADER -->
+
     <header class="site-header">
-      <a class="brand" href="#" aria-label="Hotel Hub pagina inicial">
+
+      <a class="brand" href="#" aria-label="HotelHub página inicial">
+
         <span class="brand-mark" aria-hidden="true">
           <span class="brand-window"></span>
         </span>
-        <span class="brand-name">HotelHub</span>
+
+        <span class="brand-name">
+          HotelHub
+        </span>
+
       </a>
 
-      <nav class="main-nav" aria-label="Navegacao principal">
-        <a class="is-active" href="#busca" aria-current="page">Buscar</a>
-        <a href="#destaques">Estadias</a>
-        <a href="#comentarios">Avaliacoes</a>
-        <a href="#sobre">Como funciona</a>
+      <nav class="main-nav" aria-label="Navegação principal">
+
+        <a class="is-active" href="#busca">
+          Buscar
+        </a>
+
+        <a href="#destaques">
+          Hotéis
+        </a>
+
+        <a href="#vantagens">
+          Benefícios
+        </a>
+
+        <a href="#comentarios">
+          Avaliações
+        </a>
+
+        <a href="#sobre">
+          Sobre
+        </a>
+
       </nav>
 
-      <div class="auth-actions" aria-label="Acesso do usuario">
-        <button class="login-button" type="button">Login</button>
-        <button class="signup-button" type="button">Cadastro</button>
+      <div class="auth-actions">
+
+        <span id="user-name"></span>
+
+        <a href="login.html">
+          <button class="login-button" type="button">
+            Login
+          </button>
+        </a>
+
+        <a href="cadastro.html">
+          <button class="signup-button" type="button">
+            Cadastro
+          </button>
+        </a>
+
+        <a
+          href="admin.html"
+          id="admin-link"
+          style="display: none;"
+        >
+          <button class="signup-button" type="button">
+            Painel Admin
+          </button>
+        </a>
+
+        <button
+          class="login-button"
+          id="logout-button"
+          type="button"
+          style="display: none;"
+        >
+          Sair
+        </button>
+
       </div>
+
     </header>
 
+    <!-- MAIN -->
+
     <main>
-      <!-- Hero principal: carrossel visual com o formulario de busca sobreposto. -->
+
+      <!-- HERO -->
+
       <section class="hero" id="busca">
-        <div class="carousel" aria-label="Destinos em destaque">
+
+        <div class="carousel">
+
           <div class="carousel-track" id="carousel-track">
+
             <img
               src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=75"
-              alt="Praia com mar azul e areia clara"
+              alt="Praia paradisíaca"
               fetchpriority="high"
-              decoding="async"
             />
+
             <img
               src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1400&q=75"
-              alt="Piscina de hotel com espreguicadeiras"
+              alt="Piscina de resort"
               loading="lazy"
-              decoding="async"
             />
+
             <img
               src="https://images.unsplash.com/photo-1602002418082-a4443e081dd1?auto=format&fit=crop&w=1400&q=75"
-              alt="Area externa de hotel com piscina e arquitetura clara"
+              alt="Hotel de luxo"
               loading="lazy"
-              decoding="async"
             />
+
           </div>
+
           <button
             class="carousel-control carousel-control-prev"
             type="button"
-            aria-label="Imagem anterior"
             id="carousel-prev"
           >
             &lsaquo;
           </button>
+
           <button
             class="carousel-control carousel-control-next"
             type="button"
-            aria-label="Proxima imagem"
             id="carousel-next"
           >
             &rsaquo;
           </button>
-          <div class="carousel-dots" id="carousel-dots" aria-label="Indicadores do carrossel"></div>
+
+          <div class="carousel-dots" id="carousel-dots"></div>
+
         </div>
 
         <div class="hero-overlay">
+
           <div class="hero-content">
-            <p class="eyebrow">Sua proxima estadia começa aqui</p>
-            <h1>Hotel Hub</h1>
-            <p class="hero-text">
-              Compare opcoes selecionadas, escolha as datas da viagem e veja
-              estadias que combinam com o seu destino.
+
+            <p class="eyebrow">
+              Descubra novos destinos
             </p>
+
+            <h1>
+              HotelHub
+            </h1>
+
+            <p class="hero-text">
+
+              Encontre hotéis, resorts e pousadas para transformar sua viagem
+              em uma experiência inesquecível. Pesquise destinos, compare opções
+              e escolha sua próxima hospedagem com praticidade.
+
+            </p>
+
           </div>
 
+          <!-- BUSCA -->
+
           <form class="search-panel" id="hotel-search">
+
             <div class="field">
-              <label for="destination">Destino</label>
+
+              <label for="destination">
+                Destino
+              </label>
+
               <input
                 id="destination"
                 name="destination"
                 type="text"
-                placeholder="Natal, Pipa ou Joao Pessoa"
+                placeholder="Ex: Natal, Pipa, João Pessoa"
               />
+
             </div>
 
             <div class="field">
-              <label for="checkin">Entrada</label>
-              <!-- Campo de data customizado. O calendario e montado pelo app.js. -->
+
+              <label for="checkin">
+                Check-in
+              </label>
+
               <div class="date-field" data-datepicker>
+
                 <input
                   id="checkin"
                   name="checkin"
                   type="text"
-                  placeholder="Escolha a data"
-                  autocomplete="off"
+                  placeholder="Selecione a entrada"
                   readonly
                   data-date-input
                 />
+
                 <button
                   class="date-trigger"
                   type="button"
-                  aria-label="Abrir calendario de entrada"
                   data-date-trigger
                 >
-                  <span aria-hidden="true">&#9638;</span>
+                  <span aria-hidden="true">
+                    &#9638;
+                  </span>
                 </button>
+
                 <button
                   class="date-clear"
                   type="button"
-                  aria-label="Limpar data de entrada"
                   data-date-clear
                 >
                   &times;
                 </button>
+
               </div>
+
             </div>
 
             <div class="field">
-              <label for="checkout">Saida</label>
-              <!-- Reutiliza a mesma estrutura para criar outro calendario independente. -->
+
+              <label for="checkout">
+                Check-out
+              </label>
+
               <div class="date-field" data-datepicker>
+
                 <input
                   id="checkout"
                   name="checkout"
                   type="text"
-                  placeholder="Escolha a data"
-                  autocomplete="off"
+                  placeholder="Selecione a saída"
                   readonly
                   data-date-input
                 />
+
                 <button
                   class="date-trigger"
                   type="button"
-                  aria-label="Abrir calendario de saida"
                   data-date-trigger
                 >
-                  <span aria-hidden="true">&#9638;</span>
+                  <span aria-hidden="true">
+                    &#9638;
+                  </span>
                 </button>
+
                 <button
                   class="date-clear"
                   type="button"
-                  aria-label="Limpar data de saida"
                   data-date-clear
                 >
                   &times;
                 </button>
+
               </div>
+
             </div>
 
             <div class="field">
-              <label for="guests">Hospedes</label>
-              <input id="guests" name="guests" type="number" min="1" value="2" />
+
+              <label for="guests">
+                Hóspedes
+              </label>
+
+              <input
+                id="guests"
+                name="guests"
+                type="number"
+                min="1"
+                value="2"
+              />
+
             </div>
 
-            <button class="primary-button" type="submit">Buscar estadias</button>
-            <p class="search-feedback" id="search-feedback" aria-live="polite">
-              Mostrando sugestoes selecionadas para sua viagem.
+            <button class="primary-button" type="submit">
+              Buscar Hospedagens
+            </button>
+
+            <p
+              class="search-feedback"
+              id="search-feedback"
+            >
+              Explore hospedagens disponíveis para sua viagem.
             </p>
+
           </form>
-        </div>
-      </section>
 
-      <section class="featured-section" id="destaques">
-        <div class="section-heading">
-          <p class="eyebrow">Selecao HotelHub</p>
-          <h2>Estadias em destaque</h2>
         </div>
 
-        <!-- Os cards dos hoteis sao inseridos dinamicamente pelo JavaScript. -->
-        <div class="hotel-grid" id="hotel-list" aria-live="polite"></div>
       </section>
 
-      <!-- Comentarios ficticios para dar mais contexto e confianca a interface. -->
-      <section class="reviews-section" id="comentarios">
+      <!-- BENEFICIOS -->
+
+      <section class="featured-section" id="vantagens">
+
         <div class="section-heading">
-          <p class="eyebrow">Experiencias</p>
-          <h2>Avaliacoes de hospedes</h2>
+
+          <p class="eyebrow">
+            Por que escolher o HotelHub
+          </p>
+
+          <h2>
+            Sua viagem começa aqui
+          </h2>
+
         </div>
 
         <div class="reviews-grid">
+
           <article class="review-card">
-            <span class="quote-mark">&rdquo;</span>
+
+            <span class="quote-mark">
+              ✈️
+            </span>
+
+            <h3>
+              Destinos incríveis
+            </h3>
+
             <p>
-              Encontrei uma estadia perto da praia sem precisar abrir varias
-              abas. A experiencia ficou direta e agradavel.
+              Descubra hotéis, resorts e pousadas em praias, cidades e destinos
+              especiais para qualquer estilo de viagem.
             </p>
-            <strong>Marina L. em HotelHub</strong>
+
           </article>
 
           <article class="review-card">
-            <span class="quote-mark">&rdquo;</span>
+
+            <span class="quote-mark">
+              🏨
+            </span>
+
+            <h3>
+              Hospedagens selecionadas
+            </h3>
+
             <p>
-              As informacoes aparecem no lugar certo: destino, preco, nota e
-              capacidade. Isso facilita muito comparar as opcoes.
+              Compare opções com conforto, avaliações positivas e experiências
+              pensadas para tornar sua estadia mais agradável.
             </p>
-            <strong>Rafael A. em HotelHub</strong>
+
           </article>
 
           <article class="review-card">
-            <span class="quote-mark">&rdquo;</span>
+
+            <span class="quote-mark">
+              💙
+            </span>
+
+            <h3>
+              Experiência simples
+            </h3>
+
             <p>
-              O calendario e a busca deixam a reserva com cara de produto real,
-              mesmo nesta primeira versao estatica.
+              Pesquise destinos, escolha datas e encontre sua próxima hospedagem
+              de forma rápida e intuitiva.
             </p>
-            <strong>Bianca S. em HotelHub</strong>
+
           </article>
+
         </div>
+
       </section>
+
+      <!-- HOTEIS -->
+
+      <section class="featured-section" id="destaques">
+
+        <div class="section-heading">
+
+          <p class="eyebrow">
+            Hospedagens disponíveis
+          </p>
+
+          <h2>
+            Hotéis em destaque
+          </h2>
+
+          <p
+            class="hero-text"
+            style="color: var(--muted); margin: 20px auto 0;"
+          >
+
+            Explore resorts, hotéis premium e pousadas selecionadas para
+            diferentes estilos de viagem.
+
+          </p>
+
+        </div>
+
+        <div
+          class="hotel-grid"
+          id="hotel-list"
+          aria-live="polite"
+        ></div>
+
+      </section>
+
+      <!-- AVALIACOES -->
+
+      <section class="reviews-section" id="comentarios">
+
+        <div class="section-heading">
+
+          <p class="eyebrow">
+            Avaliações
+          </p>
+
+          <h2>
+            O que nossos hóspedes dizem
+          </h2>
+
+        </div>
+
+        <div class="reviews-grid">
+
+          <article class="review-card">
+
+            <span class="quote-mark">
+              &rdquo;
+            </span>
+
+            <p>
+              Interface bonita e muito fácil de usar. Consegui encontrar
+              hospedagens rapidamente para minhas férias.
+            </p>
+
+            <strong>
+              Marina Lima
+            </strong>
+
+          </article>
+
+          <article class="review-card">
+
+            <span class="quote-mark">
+              &rdquo;
+            </span>
+
+            <p>
+              Gostei bastante da experiência. Tudo ficou organizado e simples
+              na hora de pesquisar hotéis.
+            </p>
+
+            <strong>
+              Rafael Andrade
+            </strong>
+
+          </article>
+
+          <article class="review-card">
+
+            <span class="quote-mark">
+              &rdquo;
+            </span>
+
+            <p>
+              A navegação é rápida e moderna. Parece uma plataforma profissional
+              de reservas.
+            </p>
+
+            <strong>
+              Bianca Souza
+            </strong>
+
+          </article>
+
+        </div>
+
+      </section>
+
+      <!-- SOBRE -->
 
       <section class="about-section" id="sobre">
+
         <div>
-          <p class="eyebrow">Como funciona</p>
-          <h2>Uma base simples para uma reserva completa</h2>
+
+          <p class="eyebrow">
+            Sobre o HotelHub
+          </p>
+
+          <h2>
+            Viajar deveria ser simples
+          </h2>
+
         </div>
-        <p>
-          Escolha destino, datas e quantidade de hospedes. Nesta etapa, os
-          resultados ainda usam dados ficticios no frontend, mas a interface ja
-          foi preparada para receber regras de disponibilidade e reservas reais.
-        </p>
+
+        <div>
+
+          <p>
+
+            O HotelHub conecta você às melhores experiências de hospedagem
+            de forma moderna, prática e agradável.
+
+          </p>
+
+          <br />
+
+          <p>
+
+            Explore destinos, descubra hotéis incríveis e planeje viagens
+            com mais conforto, praticidade e segurança em uma única plataforma.
+
+          </p>
+
+        </div>
+
       </section>
+
     </main>
 
+    <!-- FOOTER -->
+
     <footer class="site-footer">
+
       <div>
-        <a class="brand footer-brand" href="#" aria-label="Hotel Hub pagina inicial">
-          <span class="brand-mark" aria-hidden="true">
+
+        <a class="brand footer-brand" href="#">
+
+          <span class="brand-mark">
             <span class="brand-window"></span>
           </span>
-          <span class="brand-name">HotelHub</span>
+
+          <span class="brand-name">
+            HotelHub
+          </span>
+
         </a>
-        <p>Estadias selecionadas, busca simples e uma experiencia preparada para evoluir.</p>
+
+        <p>
+
+          Descubra hospedagens incríveis e planeje sua próxima viagem
+          com facilidade.
+
+        </p>
+
       </div>
 
-      <nav class="footer-links" aria-label="Links do rodape">
-        <a href="#busca">Buscar</a>
-        <a href="#destaques">Estadias</a>
-        <a href="#comentarios">Avaliacoes</a>
-        <a href="#sobre">Como funciona</a>
+      <nav class="footer-links">
+
+        <a href="#busca">
+          Buscar
+        </a>
+
+        <a href="#destaques">
+          Hotéis
+        </a>
+
+        <a href="#vantagens">
+          Benefícios
+        </a>
+
+        <a href="#comentarios">
+          Avaliações
+        </a>
+
       </nav>
+
     </footer>
 
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <!-- TOAST -->
 
-    <script src="js/app.js"></script>
+    <div
+      class="toast"
+      id="toast"
+      role="status"
+      aria-live="polite"
+    ></div>
+
+    <script type="module" src="js/app.js"></script>
+
   </body>
 </html>

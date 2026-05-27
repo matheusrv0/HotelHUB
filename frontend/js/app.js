@@ -1,45 +1,41 @@
-// Dados ficticios usados nesta etapa, antes de existir backend ou banco.
-const hotels = [
-  {
-    name: "Luna Mar Hotel",
-    destination: "Natal, RN",
-    rating: "4.9",
-    price: "R$ 420/noite",
-    maxGuests: 3,
-    availableFrom: "2026-06-01",
-    availableTo: "2026-08-31",
-    image:
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=720&q=75",
-    description:
-      "Hotel claro e tranquilo perto da praia, com piscina, cafe da manha e quartos confortaveis.",
-  },
-  {
-    name: "Azul do Sol Boutique",
-    destination: "Pipa, RN",
-    rating: "4.8",
-    price: "R$ 510/noite",
-    maxGuests: 2,
-    availableFrom: "2026-05-28",
-    availableTo: "2026-09-15",
-    image:
-      "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=720&q=75",
-    description:
-      "Hospedagem charmosa para descansar, com varanda, jardim e clima acolhedor.",
-  },
-  {
-    name: "Costa Serena Resort",
-    destination: "Joao Pessoa, PB",
-    rating: "4.7",
-    price: "R$ 390/noite",
-    maxGuests: 5,
-    availableFrom: "2026-06-10",
-    availableTo: "2026-10-20",
-    image:
-      "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=720&q=75",
-    description:
-      "Estrutura completa para familias, com area de lazer, restaurante e facil acesso ao mar.",
-  },
-];
+import { auth, db } from "./firebase.js";
+
+import {
+  onAuthStateChanged,
+  signOut,
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+import {
+  collection,
+  getDocs,
+  doc,
+  getDoc,
+} from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+let hotels = [];
+
+async function loadHotels() {
+  try {
+    const querySnapshot = await getDocs(collection(db, "hotels"));
+
+    hotels = [];
+
+    querySnapshot.forEach((doc) => {
+      hotels.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+    });
+
+    renderHotels(hotels);
+
+    console.log("Hoteis carregados:", hotels);
+  } catch (error) {
+    console.error("Erro ao carregar hoteis:", error);
+  }
+}
+
+loadHotels();
 
 const hotelList = document.querySelector("#hotel-list");
 const searchForm = document.querySelector("#hotel-search");
@@ -49,8 +45,11 @@ const carouselTrack = document.querySelector("#carousel-track");
 const carouselDots = document.querySelector("#carousel-dots");
 const carouselPrev = document.querySelector("#carousel-prev");
 const carouselNext = document.querySelector("#carousel-next");
-const loginButton = document.querySelector(".login-button");
-const signupButton = document.querySelector(".signup-button");
+const loginButton = document.querySelector('a[href="login.html"]');
+const signupButton = document.querySelector('a[href="cadastro.html"]');
+const userName = document.querySelector("#user-name");
+const adminLink = document.querySelector("#admin-link");
+const logoutButton = document.querySelector("#logout-button");
 const datePickers = document.querySelectorAll("[data-datepicker]");
 const navLinks = document.querySelectorAll(".main-nav a");
 
@@ -272,7 +271,10 @@ function hotelMatchesDates(hotel, checkinDate, checkoutDate) {
   const startDate = checkinDate ?? checkoutDate;
   const endDate = checkoutDate ?? checkinDate;
 
-  return isSameOrAfter(startDate, availableFrom) && isSameOrBefore(endDate, availableTo);
+  return (
+    isSameOrAfter(startDate, availableFrom) &&
+    isSameOrBefore(endDate, availableTo)
+  );
 }
 
 function createCalendar(dateField) {
@@ -402,8 +404,12 @@ function createCalendar(dateField) {
 
     dateField.classList.add("is-open");
     renderCalendar();
-    const selectedDay = grid.querySelector(".calendar-day.is-selected:not(:disabled)");
-    const firstAvailableDay = grid.querySelector(".calendar-day:not(:disabled)");
+    const selectedDay = grid.querySelector(
+      ".calendar-day.is-selected:not(:disabled)",
+    );
+    const firstAvailableDay = grid.querySelector(
+      ".calendar-day:not(:disabled)",
+    );
     (selectedDay ?? firstAvailableDay)?.focus();
   }
 
@@ -479,9 +485,15 @@ function createCalendar(dateField) {
     event.preventDefault();
     const currentDate = parseDateKey(activeDay.dataset.date);
     currentDate.setDate(currentDate.getDate() + movement);
-    state.viewDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+    state.viewDate = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1,
+    );
     renderCalendar();
-    grid.querySelector(`[data-date="${toDateKey(currentDate)}"]:not(:disabled)`)?.focus();
+    grid
+      .querySelector(`[data-date="${toDateKey(currentDate)}"]:not(:disabled)`)
+      ?.focus();
   });
 
   renderCalendar();
@@ -527,12 +539,13 @@ function setupActiveNavigation() {
       }
 
       navLinks.forEach((link) => {
-        const isCurrent = link.getAttribute("href") === `#${visibleEntry.target.id}`;
+        const isCurrent =
+          link.getAttribute("href") === `#${visibleEntry.target.id}`;
         link.classList.toggle("is-active", isCurrent);
         link.toggleAttribute("aria-current", isCurrent);
       });
     },
-    { rootMargin: "-35% 0px -55% 0px", threshold: 0 }
+    { rootMargin: "-35% 0px -55% 0px", threshold: 0 },
   );
 
   sections.forEach((section) => observer.observe(section));
@@ -569,24 +582,29 @@ searchForm.addEventListener("submit", (event) => {
       ? normalizeSearchTerm(hotel.destination).includes(destination) ||
         normalizeSearchTerm(hotel.name).includes(destination)
       : true;
-    const matchesGuests = Number.isNaN(guests) ? true : hotel.maxGuests >= guests;
+    const matchesGuests = Number.isNaN(guests)
+      ? true
+      : hotel.maxGuests >= guests;
     const matchesDates = hotelMatchesDates(hotel, checkinDate, checkoutDate);
 
     return matchesDestination && matchesGuests && matchesDates;
   });
 
   renderHotels(filteredHotels, true);
-  const resultLabel = filteredHotels.length === 1 ? "estadia encontrada" : "estadias encontradas";
+  const resultLabel =
+    filteredHotels.length === 1 ? "estadia encontrada" : "estadias encontradas";
   const dateLabel =
     checkinDate && checkoutDate
       ? ` entre ${dateFormatter.format(checkinDate)} e ${dateFormatter.format(checkoutDate)}`
       : "";
 
-  setSearchFeedback(`${filteredHotels.length} ${resultLabel} para ${guests} hospede(s)${dateLabel}.`);
+  setSearchFeedback(
+    `${filteredHotels.length} ${resultLabel} para ${guests} hospede(s)${dateLabel}.`,
+  );
   showToast(`Busca atualizada com ${filteredHotels.length} resultado(s).`);
 });
 
-hotelList.addEventListener("click", (event) => {
+hotelList.addEventListener("click", async (event) => {
   // Delegacao de evento: um unico listener atende todos os botoes dos cards.
   const button = event.target.closest("button");
 
@@ -609,18 +627,87 @@ hotelList.addEventListener("click", (event) => {
     return;
   }
 
-  showToast(`Reserva simulada para ${hotelName}.`);
-});
+  const selectedHotel = hotels.find(
+  (hotel) => hotel.name === hotelName
+);
 
-loginButton.addEventListener("click", () => {
-  showToast("Login sera implementado em uma proxima etapa.");
-});
+try {
 
-signupButton.addEventListener("click", () => {
-  showToast("Cadastro sera implementado em uma proxima etapa.");
+  const response = await fetch("http://localhost:3000/create-preference", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      title: selectedHotel.name,
+      price: selectedHotel.price,
+    }),
+  });
+
+  const data = await response.json();
+
+  window.location.href =
+    `https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=${data.id}`;
+
+} catch (error) {
+
+  console.error(error);
+
+  alert("Erro ao iniciar pagamento");
+
+}
 });
 
 setupCarousel();
 setupDatePickers();
 setupActiveNavigation();
-renderHotels(hotels);
+
+// ==========================
+// CONTROLE DE LOGIN
+// ==========================
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    logoutButton.style.display = "none";
+
+    adminLink.style.display = "none";
+
+    userName.innerText = "";
+
+    return;
+  }
+
+  const userRef = doc(db, "users", user.uid);
+
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) return;
+
+  const userData = userSnap.data();
+
+  userName.innerText = userData.email;
+
+  logoutButton.style.display = "inline-block";
+
+  // ESCONDE LOGIN/CADASTRO
+  loginButton.style.display = "none";
+
+  signupButton.style.display = "none";
+
+  // MOSTRA ADMIN
+  if (userData.role === "admin") {
+    adminLink.style.display = "inline-block";
+  }
+});
+
+// ==========================
+// LOGOUT
+// ==========================
+
+logoutButton.addEventListener("click", async () => {
+  await signOut(auth);
+
+  alert("Logout realizado");
+
+  window.location.reload();
+});
