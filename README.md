@@ -1,8 +1,8 @@
 # Hotel Hub
 
-Hotel Hub e um projeto simples de reserva de hoteis.
+Hotel Hub é um projeto simples de reserva de hoteis.
 
-Nesta primeira etapa, o projeto possui apenas um frontend estatico feito com HTML, CSS e JavaScript puro. Ainda nao existe backend, banco de dados ou API.
+Nesta primeira etapa, o projeto possui apenas um frontend estático feito com HTML, CSS e JavaScript puro. Ainda não existe backend, banco de dados ou API.
 
 ## Estrutura
 
@@ -18,11 +18,11 @@ README.md
 
 ## Funcionalidades desta etapa
 
-- Pagina inicial do Hotel Hub
-- Formulario de busca com destino, datas e quantidade de hospedes
+- P[agina inicial do Hotel Hub
+- Formulário de busca com destino, datas e quantidade de hospedes
 - Listagem de hoteis em destaque com dados ficticios
-- Botoes para simular acoes como ver detalhes e reservar
-- Organizacao simples, com HTML, CSS e JavaScript separados
+- Botões para simular ações como ver detalhes e reservar
+- Organizacão simples, com HTML, CSS e JavaScript separados
 
 ## Como executar
 
