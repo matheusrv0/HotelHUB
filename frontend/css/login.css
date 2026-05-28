@@ -210,3 +210,25 @@ h1 {
     font-size: 1.7rem;
   }
 }
+
+.auth-message {
+  display: none;
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--primary-dark);
+  font-weight: 700;
+  text-align: center;
+}
+
+.google-button {
+  margin-top: 10px;
+  background: var(--surface);
+  color: var(--primary-dark);
+  border: 1px solid var(--line);
+}
+
+.google-button:hover {
+  background: var(--accent-soft);
+}

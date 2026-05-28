@@ -1,86 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
- <link rel="stylesheet" href="css/cadastro.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <title>Cadastro - HotelHub</title>
 
-<link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poiret+One&display=swap"
-  rel="stylesheet"
-/>
-</head>
-<body>
+    <link rel="stylesheet" href="css/cadastro.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poiret+One&display=swap"
+      rel="stylesheet"
+    />
+  </head>
 
   <body>
+    <div class="auth-container">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">
+          <span class="brand-window"></span>
+        </span>
 
-  <div class="auth-container">
-
-    <a class="brand" href="index.html">
-
-      <span class="brand-mark">
-        <span class="brand-window"></span>
-      </span>
-
-      <span class="brand-name">
-        HotelHub
-      </span>
-
-    </a>
-
-    <h1>Criar conta</h1>
-
-    <p class="subtitle">
-      Cadastre-se para reservar hotéis e acessar sua conta.
-    </p>
-
-    <form id="register-form">
-
-      <div class="form-group">
-
-        <label>Email</label>
-
-        <input
-          type="email"
-          id="register-email"
-          placeholder="Digite seu email"
-          required
-        >
-
-      </div>
-
-      <div class="form-group">
-
-        <label>Senha</label>
-
-        <input
-          type="password"
-          id="register-password"
-          placeholder="Digite sua senha"
-          required
-        >
-
-      </div>
-
-      <button class="primary-button" type="submit">
-        Criar conta
-      </button>
-
-    </form>
-
-    <p class="bottom-text">
-      Já possui conta?
-      <a href="login.html">
-        Fazer login
+        <span class="brand-name">HotelHub</span>
       </a>
-    </p>
 
-  </div>
+      <h1>Criar conta</h1>
 
-  <script type="module" src="js/auth.js"></script>
+      <p class="subtitle">
+        Cadastre-se para reservar hotéis e acessar sua conta.
+      </p>
 
-</body>
+      <p id="auth-message" class="auth-message"></p>
 
-</body>
+      <form id="register-form">
+        <div class="form-group">
+          <label for="register-email">Email</label>
+
+          <input
+            type="email"
+            id="register-email"
+            placeholder="Digite seu email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="register-password">Senha</label>
+
+          <input
+            type="password"
+            id="register-password"
+            placeholder="Digite sua senha"
+            required
+          />
+        </div>
+
+        <button class="primary-button" type="submit">
+          Criar conta
+        </button>
+
+        <button class="primary-button google-button" type="button" id="google-register">
+          Cadastrar com Google
+        </button>
+      </form>
+
+      <p class="bottom-text">
+        Já possui conta?
+        <a href="login.html">Fazer login</a>
+      </p>
+    </div>
+
+    <script type="module" src="js/auth.js"></script>
+  </body>
 </html>
