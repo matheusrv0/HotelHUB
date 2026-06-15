@@ -1,12 +1,14 @@
 import express from "express";
 import cors from "cors";
-
 import mercadopago from "mercadopago";
+
+const PORT = process.argv[2] || 3001;
+const LABEL = process.argv[3] || "?";
+const NAME = `Réplica ${LABEL} (porta ${PORT})`;
 
 const app = express();
 
 app.use(cors());
-
 app.use(express.json());
 
 const client = new mercadopago.MercadoPagoConfig({
@@ -15,10 +17,12 @@ const client = new mercadopago.MercadoPagoConfig({
 
 const preference = new mercadopago.Preference(client);
 
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", servedBy: NAME });
+});
+
 app.post("/create-preference", async (req, res) => {
-
   try {
-
     const body = {
       items: [
         {
@@ -32,22 +36,18 @@ app.post("/create-preference", async (req, res) => {
 
     const result = await preference.create({ body });
 
+    console.log(`[${NAME}] criou a preferência ${result.id}`);
+
     res.json({
       id: result.id,
+      servedBy: NAME,
     });
-
   } catch (error) {
-
-    console.error(error);
-
-    res.status(500).json({
-      error: "Erro ao criar pagamento",
-    });
-
+    console.error(`[${NAME}] erro:`, error);
+    res.status(500).json({ error: "Erro ao criar pagamento" });
   }
-
 });
 
-app.listen(3000, () => {
-  console.log("Servidor rodando na porta 3000");
+app.listen(PORT, () => {
+  console.log(`${NAME} rodando.`);
 });

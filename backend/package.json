@@ -5,13 +5,14 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "concurrently -n GATEWAY,REPLICA-A,REPLICA-B -c blue,green,magenta \"node gateway.js\" \"node server.js 3001 A\" \"node server.js 3002 B\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "concurrently": "^9.1.2",
     "cors": "^2.8.6",
     "express": "^5.2.1",
     "mercadopago": "^3.0.0"
