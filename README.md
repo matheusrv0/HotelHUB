@@ -75,7 +75,22 @@ alternando entre "Réplica A" e "Réplica B".
 **Tolerância a falha:** derrube uma réplica e veja o sistema continuar pela outra.
 
 - Ver o estado das réplicas: abra http://localhost:3000/health
-- Derrubar a Réplica A (Mac/Linux): `kill $(lsof -ti tcp:3001 -sTCP:LISTEN)`
+- Get-NetTCPConnection -LocalPort 3001 -State Listen | ForEach-Object {
+    Stop-Process -Id $_.OwningProcess -Force
+}
 
 > Observação: o Mercado Pago está configurado com **token de teste** (sandbox),
 > então nenhum pagamento é cobrado de verdade.
+
+
+
+Testar Reservar varias vezes no backend : 
+
+1..6 | ForEach-Object {
+  Write-Host "Teste $_"
+
+  Invoke-RestMethod -Method Post `
+    -Uri "http://localhost:3000/create-preference" `
+    -ContentType "application/json" `
+    -Body '{"title":"Hotel Teste","price":100}'
+}
