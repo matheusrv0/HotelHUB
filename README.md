@@ -93,4 +93,7 @@ Testar Reservar varias vezes no backend :
     -Uri "http://localhost:3000/create-preference" `
     -ContentType "application/json" `
     -Body '{"title":"Hotel Teste","price":100}'
+
+    <img width="1672" height="941" alt="image" src="https://github.com/user-attachments/assets/784def1a-d60b-4fee-9d92-023fac9a5c68" />
+
 }
